@@ -1,0 +1,123 @@
+
+//------------
+EntityManager manager; // = (EntityManager) Persistence.createEntityManagerFactory("mydbname_from META-INF/persistence.xml file").createEntityManager();
+
+//---------------
+Query query = manager.createNamedQuery("ModelName.findAll");
+List<ModelName> data =  query.getResultList();
+
+for(ModelName d : data ){
+    ...
+}
+//--------------------------
+
+FXCollections.observableArrayList
+
+//---------NamedQuery--------
+, @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
+,@NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")
+
+
+//--------------JAVAFX------------
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+
+public class [xyz] extends Application{
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage stage) throws Exception {
+
+      // loading from FXML
+      Parent root = FXMLLoader.load(getClass().getResource("FXML_First.fxml"));
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+
+  }
+}
+// --------------------
+ObservableList<SampleModel> odata = FXCollections.observableArrayList();
+    for (SampleModel d : data) {
+        //...
+        System.out.println(d.toString()+ "");
+        odata.add(d);
+    }
+
+    modelTable.setItems(odata);
+
+//----------------------
+//set up the columns in the table
+modelColumnID.setCellValueFactory(new PropertyValueFactory<>("Id")); //should match with attribute Id (e.g., getId/setId methods) in SimpleModel
+modelColumnValue.setCellValueFactory(new PropertyValueFactory<>("Value")); //should match with attribute Value (e.g., getValue/setValue methods) in SimpleModel
+
+// ---------------------
+@FXML
+void simpleDialogAction(ActionEvent event) {
+    // alert link: https://code.makery.ch/blog/javafx-dialogs-official/
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Information Dialog");
+    alert.setHeaderText("Look, an Information Dialog");
+    alert.setContentText("I have a great message for you!");
+
+    alert.showAndWait();
+}
+
+//-----------------------
+@FXML
+void loadingFXML(ActionEvent event) {
+
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML_Second.fxml"));
+        Parent secondRoot = loader.load();
+
+        // getting the controller from FXLoader
+        FXML_SecondController secondController =  loader.getController();
+        secondController.displayMessage(messageInput.getText());
+
+        // Show Second FXML in new a window
+        Stage stage = new Stage();
+        stage.setScene(new Scene(secondRoot));
+        stage.setTitle("Second Window");
+        stage.show();
+    }
+    catch (IOException ex) {
+        System.err.println(ex);
+    }
+}
+
+// ----------------------------------
+ @FXML
+void loadingFXMLInPlace(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML_Second.fxml"));
+        Parent secondRoot = loader.load();
+
+        // getting the controller from FXLoader
+        FXML_SecondController secondController =  loader.getController();
+        secondController.displayMessage(messageInput.getText());
+
+        Scene currentScene = ((Node)event.getSource()).getScene();
+
+        // Get the current Scene from event
+        //Stage currentStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage currentStage = (Stage)(currentScene.getWindow());
+
+        currentStage.setScene(new Scene(secondRoot));
+        currentStage.setTitle("Second Window");
+        //currentStage.show();
+
+        secondController.SetParentScene(currentScene);
+    }
+    catch (IOException ex) {
+        System.err.println(ex);
+    }
+
+}
+
