@@ -9,6 +9,58 @@ List<ModelName> data =  query.getResultList();
 for(ModelName d : data ){
     ...
 }
+//----- Database CRUD Operations------
+
+public void create(SampleModel model){        
+    try {
+        manager.getTransaction().begin();
+        if (model.getId() != null) {           
+            // create model
+            manager.persist(student);
+            manager.getTransaction().commit();
+        }         
+    }
+    catch (Exception ex){
+        System.out.println(ex.getMessage());
+    }
+}
+
+public void update(SampleModel model){
+    try {
+        
+        SampleModel dbModel = manager.find(SampleModel.class, model.getId());
+        
+        if (dbModel != null){
+            manager.getTransaction().begin();
+            // update
+            dbModel.setValue(model.getValue());    
+            manager.getTransaction().commit();
+        }
+    }
+    catch (Exception ex){
+        System.out.println(ex.getMessage());
+    }
+}
+
+public void delete(SampleModel model){
+    try {        
+        SampleModel dbModel = manager.find(SampleModel.class, model.getId());
+
+        if (dbModel != null){
+            manager.getTransaction().begin();
+            //remove model
+            manager.remove(dbModel); 
+            manager.getTransaction().commit();
+        }
+    }
+    catch (Exception ex){
+        System.out.println(ex.getMessage());
+    }
+}
+
+
+
+
 //--------------------------
 
 FXCollections.observableArrayList
@@ -17,6 +69,101 @@ FXCollections.observableArrayList
 , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
 ,@NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")
 
+
+//-----------TableView------------
+//This will allow the table to select multiple rows at once
+
+modelTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        
+//Disable the detailed person view button until a row is selected
+this.detailedPersonViewButton.setDisable(true);
+
+
+
+private boolean isEditable = false;
+
+isEditable = checkboxEditCell.isSelected();
+
+
+//Update the table to allow for the Value field  to be editable
+modelTable.setEditable(isEditable);
+
+modelColumnValue.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+
+
+
+
+ void valueColumnChanged(TableColumn.CellEditEvent event){
+    SampleModel model =  modelTable.getSelectionModel().getSelectedItem();
+    model.setValue(edittedCell.getNewValue().toString());
+    
+    update(model);
+
+}
+   
+ this.detailedPersonViewButton.setDisable(false);
+    
+
+
+public void deleteButtonAction()
+    {
+        SampleModel model = modelTable.getSelectionModel().getSelectedItem();
+        delete(model);
+
+        modelTable.getItems().remove(model)
+        
+        ObservableList<SampleModel> selectedRow, allRows;
+        allRows = tableView.getItems();
+        
+        //this gives us the rows that were selected
+        selectedRow = tableView.getSelectionModel().getSelectedItems();
+        
+        //loop over the selected rows and remove the Person objects from the table
+        for (Person person: selectedRows)
+        {
+            allPeople.remove(person);
+        }
+    }
+//
+public void createButtonAction()
+    {
+        int id =  Integer.parseInt(textfieldID.getText());
+        String value = textfieldValue.getText();
+        
+        SampleModel model = new SampleModel();
+        model.setId(id);
+        model.setValue(value);
+        
+        // add model to tableview
+        modelTable.getItems().add(model);
+        
+        // add model to database
+        create(model);
+}
+
+void showDetailButtonAction(ActionEvent event) {
+        Parent detailedView = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+        
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(tableViewScene);
+        window.show();
+}
+
+public void initData(SampleModel model)
+    {
+        selectedPerson = person;
+        firstNameLabel.setText(selectedPerson.getFirstName());
+        lastNameLabel.setText(selectedPerson.getLastName());
+        birthdayLabel.setText(selectedPerson.getBirthday().toString());
+        ageLabel.setText(Integer.toString(selectedPerson.getAge()));
+        photo.setImage(selectedPerson.getImage());
+    }
+    
 
 //--------------JAVAFX------------
 import javafx.application.Application;
@@ -120,4 +267,21 @@ void loadingFXMLInPlace(ActionEvent event) {
     }
 
 }
+
+void confirmationButtonAction(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // ... user chose OK
+            statusLabel.setText("... user chose OK");
+        } else {
+            // ... user chose CANCEL or closed the dialog
+            statusLabel.setText("... user chose CANCEL or closed the dialog");
+        }
+
+    }
 

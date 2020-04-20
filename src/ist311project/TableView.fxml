@@ -1,17 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ist311project.TableViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ist311project.TableViewController">
    <children>
-      <TableView fx:id="modelTable" layoutX="75.0" layoutY="30.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="modelColumnID" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="modelColumnValue" prefWidth="75.0" text="Value" />
-        </columns>
-      </TableView>
+      <VBox prefHeight="527.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="58.0" prefWidth="600.0" spacing="100.0">
+               <children>
+                  <CheckBox fx:id="checkboxEditCell" mnemonicParsing="false" onAction="#editCellAction" prefHeight="24.0" prefWidth="161.0" text="Edit Cell?" />
+                  <CheckBox fx:id="checkboxNewWinddow" mnemonicParsing="false" onAction="#checkboxNewWindowAction" text="Show  Details in New Window" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </HBox>
+            <AnchorPane prefHeight="366.0" prefWidth="600.0">
+               <children>
+                  <TableView fx:id="modelTable" prefHeight="400.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="modelColumnID" prefWidth="69.0" text="ID" />
+                      <TableColumn fx:id="modelColumnValue" minWidth="0.0" onEditCommit="#valueColumnChanged" prefWidth="519.0" text="Value" />
+                    </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+            <HBox prefHeight="27.0" prefWidth="600.0" spacing="200.0">
+               <children>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete Row" />
+                  <Button fx:id="showDetailButton" mnemonicParsing="false" onAction="#showDetailButtonAction" text="Show Details" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="600.0" spacing="30.0">
+               <children>
+                  <TextField fx:id="textfieldID" promptText="Enter ID" />
+                  <TextField fx:id="textfieldValue" promptText="Enter Value" />
+                  <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonAction" text="Create Row" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
