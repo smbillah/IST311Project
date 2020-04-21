@@ -69,7 +69,32 @@ public class TableViewController {
 
     @FXML
     private CheckBox checkboxNewWinddow;
+    
+    @FXML // fx:id="buttonRich"
+    private Button buttonRich; // Value injected by FXMLLoader
 
+
+    
+    @FXML
+    void buttonRichAction(ActionEvent event) throws IOException {
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RichUIView.fxml"));
+
+        // load the ui elements
+        Parent richView = loader.load();
+        // load the scene
+        Scene tableViewScene = new Scene(richView);
+
+        //access the controller and call a method
+        RichUIViewController controller = loader.getController();
+
+        // create a new state
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
+
+    }
+    
     @FXML
     void checkboxNewWindowAction(ActionEvent event) {
 

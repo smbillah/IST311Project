@@ -1,14 +1,18 @@
 
 //------------
-EntityManager manager; // = (EntityManager) Persistence.createEntityManagerFactory("mydbname_from META-INF/persistence.xml file").createEntityManager();
+EntityManager manager = (EntityManager) Persistence.createEntityManagerFactory("IST311ProjectPU").createEntityManager();
 
 //---------------
 Query query = manager.createNamedQuery("ModelName.findAll");
 List<ModelName> data =  query.getResultList();
 
+List<ModelName> data  = manager.createNamedQuery("ModelName.findAll").getResultList();
+
+
 for(ModelName d : data ){
     ...
 }
+
 //----- Database CRUD Operations------
 
 public void create(SampleModel model){        
@@ -285,3 +289,27 @@ void confirmationButtonAction(ActionEvent event) {
 
     }
 
+
+// -------TabPanel --------
+ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Grapefruit", .2),
+                new PieChart.Data("Oranges", .2),
+                new PieChart.Data("Plums", .2),
+                new PieChart.Data("Pears", .2),
+                new PieChart.Data("Apples", .2));
+        pieChart.setData(pieChartData);        
+
+
+
+// ---- javaFX doc --- 
+https://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+
+//Tab Documentation
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Tab.html#onSelectionChangedProperty
+
+// auto-complete
+https://docs.gluonhq.com/charm/javadoc/4.4.1/com/gluonhq/charm/glisten/control/AutoCompleteTextField.html
+
+https://search.maven.org/search?q=g:org.controlsfx%20AND%20a:controlsfx
+https://github.com/controlsfx/controlsfx/tree/9.0.0

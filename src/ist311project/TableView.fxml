@@ -14,10 +14,15 @@
    <children>
       <VBox prefHeight="527.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="58.0" prefWidth="600.0" spacing="100.0">
+            <HBox prefHeight="58.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <CheckBox fx:id="checkboxEditCell" mnemonicParsing="false" onAction="#editCellAction" prefHeight="24.0" prefWidth="161.0" text="Edit Cell?" />
+                  <CheckBox fx:id="checkboxEditCell" mnemonicParsing="false" onAction="#editCellAction" text="Edit Cell?" />
                   <CheckBox fx:id="checkboxNewWinddow" mnemonicParsing="false" onAction="#checkboxNewWindowAction" text="Show  Details in New Window" />
+                  <Button fx:id="buttonRich" mnemonicParsing="false" onAction="#buttonRichAction" text="Show Rich UI">
+                     <HBox.margin>
+                        <Insets left="210.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
@@ -36,20 +41,26 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </AnchorPane>
-            <HBox prefHeight="27.0" prefWidth="600.0" spacing="200.0">
+            <HBox prefHeight="27.0" prefWidth="600.0" spacing="300.0">
                <children>
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete Row" />
-                  <Button fx:id="showDetailButton" mnemonicParsing="false" onAction="#showDetailButtonAction" text="Show Details" />
+                  <Button fx:id="showDetailButton" mnemonicParsing="false" onAction="#showDetailButtonAction" text="Show Details">
+                     <HBox.margin>
+                        <Insets left="110.0" />
+                     </HBox.margin></Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="47.0" prefWidth="600.0" spacing="30.0">
+            <HBox prefHeight="47.0" prefWidth="600.0" spacing="10.0">
                <children>
                   <TextField fx:id="textfieldID" promptText="Enter ID" />
                   <TextField fx:id="textfieldValue" promptText="Enter Value" />
-                  <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonAction" text="Create Row" />
+                  <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonAction" prefHeight="27.0" prefWidth="89.0" text="Create Row">
+                     <HBox.margin>
+                        <Insets left="150.0" />
+                     </HBox.margin></Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
