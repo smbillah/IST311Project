@@ -117,7 +117,7 @@ public class TableViewController {
         String value = textfieldValue.getText();
 
         SampleModel model = new SampleModel();
-        model.setId(id);
+        model.setId((long)id);
         model.setValue(value);
 
         // add model to tableview

@@ -30,22 +30,22 @@ public class SampleModel implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID")
-    private Integer id;
+    private Long id;
     @Column(name = "Value")
     private String value;
 
     public SampleModel() {
     }
 
-    public SampleModel(Integer id) {
+    public SampleModel(Long id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
