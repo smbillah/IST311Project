@@ -15,7 +15,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -51,7 +53,19 @@ public class RichUIViewController {
      @FXML // fx:id="textReport"
     private Text textReport; // Value injected by FXMLLoader
      
-     
+    @FXML // fx:id="autoComplete"
+    private TextField autoComplete; // Value injected by FXMLLoader
+    
+    @FXML
+    private Label labelSearch;
+
+    @FXML
+    void autoCompleteAction(ActionEvent event) {
+        System.out.println("Autocomplete action" +" searching for: "+ autoComplete.getText());
+        labelSearch.setText("Searching for "+ "\""+ autoComplete.getText()+"\":");
+
+    } 
+    
     @FXML
     void tabGraphChanged(Event event) {
         System.out.println("tab");
@@ -84,7 +98,18 @@ public class RichUIViewController {
     ArrayList<String> l = new ArrayList<>();
     @FXML
     void tabSearchChanged(Event event) {
-        System.out.println("search tab");
+        System.out.println("search tab");        
+        
+        List<SampleModel> data  = manager.createNamedQuery("SampleModel.findAll").getResultList();
+        ArrayList<String> suggestions = new ArrayList<>();
+        
+        for (SampleModel model : data) {
+            suggestions.add(model.getValue());
+        }
+        
+        TextFields.bindAutoCompletion(autoComplete, suggestions);
+        
+        
                  
     }
     

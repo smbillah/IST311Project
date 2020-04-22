@@ -46,8 +46,20 @@
           </Tab>
             <Tab fx:id="tabSearch" onSelectionChanged="#tabSearchChanged" text="Search Tab">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">                     
-                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="autoComplete" layoutX="246.0" layoutY="45.0" onAction="#autoCompleteAction" />
+                        <Label fx:id="labelSearch" layoutX="173.0" layoutY="47.0" text="Search:">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelSearch" layoutX="23.0" layoutY="128.0" text="Search Results:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab fx:id="tabReport" onSelectionChanged="#tabReportChanged" text="Report Tab">
