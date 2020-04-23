@@ -4,6 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>ist311project.SampleModel</class>
     <properties>
+       <property name="eclipselink.ddl-generation" value="create-tables" />
+       <property name="eclipselink.ddl-generation.output-mode" value="database" />
+       <property name="eclipselink.ddl-generation-mode" value="ddl_database_generation" />
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ist311db.cahpdmpysbav.us-east-2.rds.amazonaws.com:3306/db0?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="db0_user"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
